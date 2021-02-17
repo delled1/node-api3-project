@@ -2,7 +2,7 @@ const express = require('express');
 const welcomeRouter = require("./welcome/welcome-router")
 const postsRouter = require("./posts/posts-router")
 const usersRouter = require("./users/users-router")
-const logger = require("./middleware/middleware")
+const {logger} = require("./middleware/middleware")
 
 const server = express();
 
