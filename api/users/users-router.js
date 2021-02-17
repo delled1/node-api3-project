@@ -12,29 +12,39 @@ router.get('/users', (req, res, next) => {
   .catch((err) => {
     next(err)
   })
+
 });
 
 router.get('/users/:id', validateUserId(), (req, res) => {
 
   res.json(req.user)
+
 });
 
 router.post('/users', validateUser(), (req, res, next) => {
-  // RETURN THE NEWLY CREATED USER OBJECT
-  // this needs a middleware to check that the request body is valid
 
 	users.insert(req.body)
 		.then((user) => {
 			res.status(201).json(user)
 		})
 		.catch(next)
+
 });
 
-// router.put('/:id', (req, res) => {
-//   // RETURN THE FRESHLY UPDATED USER OBJECT
-//   // this needs a middleware to verify user id
-//   // and another middleware to check that the request body is valid
-// });
+router.put('/users/:id', validateUser(), validateUserId(), (req, res, next) => {
+  users.update(req.params.id, req.body)
+  .then((user) => {
+    if (user) {
+      res.status(200).json(user)
+    } else {
+      res.status(404).json({
+        message: "The user could not be found"
+      })
+    }
+  })
+  .catch(next)
+
+});
 
 // router.delete('/:id', (req, res) => {
 //   // RETURN THE FRESHLY DELETED USER OBJECT
