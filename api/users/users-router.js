@@ -46,10 +46,23 @@ router.put('/users/:id', validateUser(), validateUserId(), (req, res, next) => {
 
 });
 
-// router.delete('/:id', (req, res) => {
-//   // RETURN THE FRESHLY DELETED USER OBJECT
-//   // this needs a middleware to verify user id
-// });
+router.delete('/users/:id', validateUserId(), (req, res, next) => {
+  // RETURN THE FRESHLY DELETED USER OBJECT
+  // this needs a middleware to verify user id
+  users.remove(req.params.id)
+  .then((count) => {
+    if (count > 0){
+      res.status(200).json({
+        message: "User removed"
+      })
+    } else{
+      res.status(404).json({
+        message: "User could not be found"
+      })
+    }
+  })
+  .catch(next)
+});
 
 // router.get('/:id/posts', (req, res) => {
 //   // RETURN THE ARRAY OF USER POSTS
