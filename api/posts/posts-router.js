@@ -2,6 +2,8 @@ const express = require('express');
 const posts = require("../posts/posts-model")
 const router = express.Router();
 
+
+
 router.get('/posts', (req, res,next) => {
   posts.get()
   .then((posts) => {
@@ -12,9 +14,14 @@ router.get('/posts', (req, res,next) => {
   })
 });
 
-// router.get('/:id', (req, res) => {
-//   // DO YOUR MAGIC
-// });
+router.get('/posts/:id', (req, res, next) => {
+  
+	posts.getById(req.params.id)
+  .then((post) => {
+    res.status(200).json(post)
+  })
+  .catch(next)
+});
 
 // do not forget to export the router
 module.exports = router
