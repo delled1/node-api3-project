@@ -47,8 +47,7 @@ router.put('/users/:id', validateUser(), validateUserId(), (req, res, next) => {
 });
 
 router.delete('/users/:id', validateUserId(), (req, res, next) => {
-  // RETURN THE FRESHLY DELETED USER OBJECT
-  // this needs a middleware to verify user id
+
   users.remove(req.params.id)
   .then((count) => {
     if (count > 0){
@@ -62,12 +61,16 @@ router.delete('/users/:id', validateUserId(), (req, res, next) => {
     }
   })
   .catch(next)
+
 });
 
-// router.get('/:id/posts', (req, res) => {
-//   // RETURN THE ARRAY OF USER POSTS
-//   // this needs a middleware to verify user id
-// });
+router.get('/users/:id/posts', validateUserId(), (req, res, next) => {
+  users.getUserPosts(req.params.id)
+  .then((posts) => {
+    res.status(200).json(posts)
+  })
+  .catch(next)
+});
 
 // router.post('/:id/posts', (req, res) => {
 //   // RETURN THE NEWLY CREATED USER POST
