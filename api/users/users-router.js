@@ -72,11 +72,19 @@ router.get('/users/:id/posts', validateUserId(), (req, res, next) => {
   .catch(next)
 });
 
-// router.post('/:id/posts', (req, res) => {
-//   // RETURN THE NEWLY CREATED USER POST
-//   // this needs a middleware to verify user id
-//   // and another middleware to check that the request body is valid
-// });
+router.post('/users/:id/posts', validateUserId(), (req, res, next) => {
+  if (!req.body.text) {
+    return res.status(400).json({
+      message: "Need a value for text"
+    })
+  }
+
+  users.addUserPost(req.params.id, req.body)
+  .then((post) => {
+    res.status(201).json(post)
+  })
+  .catch(next)
+});
 
 // do not forget to export the router
 module.exports = router;
