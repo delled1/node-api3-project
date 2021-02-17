@@ -86,5 +86,4 @@ router.post('/users/:id/posts', validateUserId(), (req, res, next) => {
   .catch(next)
 });
 
-// do not forget to export the router
 module.exports = router;
