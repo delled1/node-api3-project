@@ -2,6 +2,7 @@ const express = require('express');
 const welcomeRouter = require("./welcome/welcome-router")
 const postsRouter = require("./posts/posts-router")
 const usersRouter = require("./users/users-router")
+const logger = require("./middleware/middleware")
 
 const server = express();
 
@@ -10,9 +11,19 @@ const server = express();
 // global middlewares and routes need to be connected here
 
 server.use(express.json())
+server.use(logger("short"))
+
 server.use(welcomeRouter)
-server.use(postsRouter)
 server.use(usersRouter)
+server.use(postsRouter)
+
+server.use((err, req, res) => {
+  console.log(err)
+
+  res.status(500).json({
+    message: "Something went wrong"
+  })
+})
 
 
 
