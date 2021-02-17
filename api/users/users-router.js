@@ -1,6 +1,7 @@
 const express = require('express');
 const users = require("./users-model")
 const router = express.Router();
+const { validateUserId,  } = require ("../middleware/middleware")
 
 router.get('/users', (req, res, next) => {
 
@@ -13,10 +14,10 @@ router.get('/users', (req, res, next) => {
   })
 });
 
-// router.get('/:id', (req, res) => {
-//   // RETURN THE USER OBJECT
-//   // this needs a middleware to verify user id
-// });
+router.get('/users/:id', validateUserId(), (req, res) => {
+
+  res.json(req.user)
+});
 
 // router.post('/', (req, res) => {
 //   // RETURN THE NEWLY CREATED USER OBJECT

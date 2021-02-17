@@ -17,13 +17,13 @@ server.use(welcomeRouter)
 server.use(usersRouter)
 server.use(postsRouter)
 
-server.use((err, req, res) => {
-  console.log(err)
+// server.use((err, req, res) => {
+//   console.log(err)
 
-  res.status(500).json({
-    message: "Something went wrong"
-  })
-})
+//   res.status(500).json({
+//     message: "Something went wrong"
+//   })
+// })
 
 
 
