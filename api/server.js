@@ -1,4 +1,7 @@
 const express = require('express');
+const welcomeRouter = require("./welcome/welcome-router")
+const postsRouter = require("./posts/posts-router")
+const usersRouter = require("./users/users-router")
 
 const server = express();
 
@@ -6,8 +9,11 @@ const server = express();
 
 // global middlewares and routes need to be connected here
 
-server.get('/', (req, res) => {
-  res.send(`<h2>Let's write some middleware!</h2>`);
-});
+server.use(express.json())
+server.use(welcomeRouter)
+server.use(postsRouter)
+server.use(usersRouter)
+
+
 
 module.exports = server;
