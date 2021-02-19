@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "scripts": {
         "watch": "nodemon --require dotenv/config index.js",
-		"start": "node index.js",
+        "start": "node index.js",
         "server": "nodemon index.js",
         "test": "cross-env NODE_ENV=testing jest --watch --verbose --runInBand --silent"
     },
@@ -30,5 +30,3 @@
         "supertest": "^6.1.3"
     }
 }
-
-
