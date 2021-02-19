@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 
-router.get('/posts', (req, res,next) => {
+router.get('/', (req, res,next) => {
   posts.get()
   .then((posts) => {
     res.status(200).json(posts)
@@ -14,7 +14,7 @@ router.get('/posts', (req, res,next) => {
   })
 });
 
-router.get('/posts/:id', (req, res, next) => {
+router.get('/:id', (req, res, next) => {
   
 	posts.getById(req.params.id)
   .then((post) => {
