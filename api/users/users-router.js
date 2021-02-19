@@ -3,7 +3,7 @@ const users = require("./users-model")
 const router = express.Router();
 const { validateUserId, validateUser } = require ("../middleware/middleware")
 
-router.get('/users', (req, res, next) => {
+router.get('/', (req, res, next) => {
 
   users.get()
   .then((users) => {
@@ -15,7 +15,7 @@ router.get('/users', (req, res, next) => {
 
 });
 
-router.get('/users/:id', validateUserId(), (req, res) => {
+router.get('/:id', validateUserId(), (req, res) => {
 
   res.json(req.user)
 
@@ -31,7 +31,7 @@ router.post('/users', validateUser(), (req, res, next) => {
 
 });
 
-router.put('/users/:id', validateUser(), validateUserId(), (req, res, next) => {
+router.put('/:id', validateUser(), validateUserId(), (req, res, next) => {
   users.update(req.params.id, req.body)
   .then((user) => {
     if (user) {
@@ -46,7 +46,7 @@ router.put('/users/:id', validateUser(), validateUserId(), (req, res, next) => {
 
 });
 
-router.delete('/users/:id', validateUserId(), (req, res, next) => {
+router.delete('/:id', validateUserId(), (req, res, next) => {
 
   users.remove(req.params.id)
   .then((count) => {
@@ -64,7 +64,7 @@ router.delete('/users/:id', validateUserId(), (req, res, next) => {
 
 });
 
-router.get('/users/:id/posts', validateUserId(), (req, res, next) => {
+router.get('/:id/posts', validateUserId(), (req, res, next) => {
   users.getUserPosts(req.params.id)
   .then((posts) => {
     res.status(200).json(posts)
@@ -72,7 +72,7 @@ router.get('/users/:id/posts', validateUserId(), (req, res, next) => {
   .catch(next)
 });
 
-router.post('/users/:id/posts', validateUserId(), (req, res, next) => {
+router.post('/:id/posts', validateUserId(), (req, res, next) => {
   if (!req.body.text) {
     return res.status(400).json({
       message: "Need a value for text"
