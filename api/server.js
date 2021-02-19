@@ -1,5 +1,5 @@
 const express = require('express');
-const welcomeRouter = require("./welcome/welcome-router")
+
 const postsRouter = require("./posts/posts-router")
 const usersRouter = require("./users/users-router")
 const {logger} = require("./middleware/middleware")
@@ -16,7 +16,9 @@ server.use(logger("short"))
 
 server.use(usersRouter)
 server.use(postsRouter)
-server.use(welcomeRouter)
+server.get('/', (req, res) => {
+  res.send(`<h2>Unit 4 Project 3</h2>`);
+});
 server.use((err, req, res) => {
   console.log(err)
 
