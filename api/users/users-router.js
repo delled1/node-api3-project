@@ -21,7 +21,7 @@ router.get('/:id', validateUserId(), (req, res) => {
 
 });
 
-router.post('/users', validateUser(), (req, res, next) => {
+router.post('/', validateUser(), (req, res, next) => {
 
 	users.insert(req.body)
 		.then((user) => {
